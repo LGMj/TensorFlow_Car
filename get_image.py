@@ -1,5 +1,6 @@
 import wiringpi
 import pygame
+import cv2 as cv
 
 def gpioInit():
     wiringpi.wiringPiSetup()
@@ -41,8 +42,12 @@ def setMotorVal(val):
 def main():
     start_flag = 0
     speed = 0
+    index = 0
     pygame.init()
     gpioInit()
+    capture = cv.VideoCapture(0)
+    capture.set(cv.CAP_PROP_FRAME_WIDTH, 128)
+    capture.set(cv.CAP_PROP_FRAME_HEIGHT, 64)
     screen = pygame.display.set_mode((0, 0), 0, 32)
     screen_rect = screen.get_rect()
     while True:
@@ -68,6 +73,10 @@ def main():
         x, y = pygame.mouse.get_pos()
         servo_val = 620 - int(x*240 / screen_rect.width)
         setServoVal(servo_val)
+        ret, frame = capture.read()
+        gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+        cv.imwrite('./image/' + str(index) + '_' + str(x), gray)
+        index = index + 1
         wiringpi.delay(50)
 
 
