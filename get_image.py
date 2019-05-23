@@ -46,8 +46,8 @@ def main():
     pygame.init()
     gpioInit()
     capture = cv.VideoCapture(0)
-    capture.set(cv.CAP_PROP_FRAME_WIDTH, 128)
-    capture.set(cv.CAP_PROP_FRAME_HEIGHT, 64)
+    capture.set(cv.CAP_PROP_FRAME_WIDTH, 240)
+    capture.set(cv.CAP_PROP_FRAME_HEIGHT, 60)
     screen = pygame.display.set_mode((0, 0), 0, 32)
     screen_rect = screen.get_rect()
     while True:
@@ -75,9 +75,10 @@ def main():
         setServoVal(servo_val)
         ret, frame = capture.read()
         gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-        cv.imwrite('./image/' + str(index) + '_' + str(x), gray)
+        if start_flag:
+            cv.imwrite('./image/' + str(index) + '_' + str(x), gray)
         index = index + 1
-        wiringpi.delay(50)
+        wiringpi.delay(5)
 
 
 if __name__ == "__main__":
