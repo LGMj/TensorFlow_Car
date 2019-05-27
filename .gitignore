@@ -5,3 +5,4 @@ test_image/
 train_image/
 *.h5
 __pycache__/
+image1/
