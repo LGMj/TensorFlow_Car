@@ -5,7 +5,7 @@ import sys
 from progressbar import *
 
 def loadData():
-    imageDir = './image/'
+    imageDir = './train_image/'
     files = os.listdir(imageDir)
     path = os.path.join(imageDir, files[0])
     img = cv.imread(path, 0)
@@ -17,9 +17,10 @@ def loadData():
         path = os.path.join(imageDir, files[i])
         if os.path.isfile(path):
             img = cv.imread(path, 0)
+            img = cv.resize(img, (240, 60))
             img = img.tolist()
             data.append(img)
-            angle = int(path.split('_')[1].split('.')[0])
+            angle = int(path.split('_')[2].split('.')[0])
             angle = 620 - int(angle*240 / 1079) - 381
             label.append(angle)
     data = np.array(data, dtype=ty)

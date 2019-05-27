@@ -19,7 +19,7 @@ model = Sequential()
 model.add(Conv2D(filters=16,
                 kernel_size=(5,5),
                 padding='same',#补零
-                input_shape=(64,128,1),
+                input_shape=(60,240,1),
                 activation='relu'))
 model.add(MaxPooling2D(pool_size=(4,4)))
 model.add(Conv2D(filters=36,
@@ -38,6 +38,6 @@ model.compile(loss='categorical_crossentropy',
              optimizer='adam',metrics=['accuracy'])
 train_history=model.fit(x=x_train4D_normalize,
                        y=y_trainOneHot,validation_split=0.2,
-                       epochs=200,batch_size=300,verbose=2)
+                       epochs=300,batch_size=30,verbose=2)
 
-model.save('model.h5')
+model.save('model1.h5')
