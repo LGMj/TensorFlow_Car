@@ -5,3 +5,5 @@ test_image/
 train_image/
 __pycache__/
 image1/
+train_data.kpl
+
