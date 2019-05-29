@@ -12,7 +12,7 @@ from keras.callbacks import ModelCheckpoint, CSVLogger
 import keras.backend as K
 
 print('Loading data...')
-with open('./train_data.kpl', 'rb') as f:
+with open('./train_data_240.kpl', 'rb') as f:
     x_train, y_train = pickle.load(f)
 
 x_train4D = x_train.reshape(x_train.shape[0], x_train.shape[1], x_train.shape[2], 1).astype('float32')
@@ -23,9 +23,9 @@ x_train4D_normalize = x_train4D / 255
 print('建立模型')
 init = 'glorot_uniform'
 if K.backend() == 'theano':
-    input_frame = Input(shape=(1, 66, 200))
+    input_frame = Input(shape=(1, 60, 240))
 else:
-    input_frame = Input(shape=(66, 200, 1))
+    input_frame = Input(shape=(60, 240, 1))
 x = Conv2D(24, (5, 5), padding='valid', strides=(2,2), kernel_initializer=init)(input_frame)
 x = ELU()(x)
 x = Dropout(0.2)(x)
@@ -35,10 +35,7 @@ x = Dropout(0.2)(x)
 x = Conv2D(48, (5, 5), padding='valid', strides=(2,2), kernel_initializer=init)(x)
 x = ELU()(x)
 x = Dropout(0.2)(x)
-x = Conv2D(64, (3, 3), padding='valid', kernel_initializer=init)(x)
-x = ELU()(x)
-x = Dropout(0.2)(x)
-x = Conv2D(64, (3, 3), padding='valid', kernel_initializer=init)(x)
+x = Conv2D(64, (3, 3), padding='valid', strides=(2,2), kernel_initializer=init)(x)
 x = ELU()(x)
 x = Dropout(0.2)(x)
 
@@ -62,5 +59,5 @@ model_path = os.path.expanduser('./model.h5')
 save_best = callbacks.ModelCheckpoint(model_path, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
 early_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=5, verbose=0, mode='auto')
 callbacks_list = [save_best, early_stop]
-model.fit(x=x_train4D_normalize,y=y_train,validation_split=0.2,epochs=10,batch_size=256,callbacks=callbacks_list)
+model.fit(x=x_train4D_normalize,y=y_train,validation_split=0.2,epochs=50,batch_size=256,callbacks=callbacks_list)
 

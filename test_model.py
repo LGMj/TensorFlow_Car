@@ -4,7 +4,7 @@ import numpy as np
 import time 
 import pickle
 
-with open('./test_data.kpl', 'rb') as f:
+with open('./test_data_240.kpl', 'rb') as f:
      x_test, y_test = pickle.load(f)
 
 x_test4D = x_test.reshape(x_test.shape[0], x_test.shape[1], x_test.shape[2], 1).astype('float32')

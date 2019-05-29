@@ -22,7 +22,7 @@ for i in range(4):
     img_data = []
     img = cv.imread(images[i], 0)
     img_show = img 
-    img = cv.resize(img, (200, 66))
+    img = cv.resize(img, (240, 60))
     img = img.tolist()
     img_data.append(img)
     img_data = np.array(img_data, dtype=np.uint8)
