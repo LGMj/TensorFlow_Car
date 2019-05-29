@@ -7,7 +7,7 @@ images = []
 angles = []
 for i in range(4):
     name = input("input image name:")
-    img_path = 'test_image/' + name + '.jpeg'
+    img_path = './test_image/' + name + '.jpeg'
     angle = int(img_path.split('_')[2].split('.')[0])
     angle = 620 - int(angle*240/1079) - 381
     print(angle)
@@ -42,4 +42,4 @@ for i in range(4):
     cv.putText(img_show, 'loss:' + str(loss) + '%', (10,40), cv.FONT_HERSHEY_PLAIN, 1, (255,255,255))
     cv.imshow("img", img_show)
     cv.waitKey(0)
-    cv.destroyAllWindows()
+cv.destroyAllWindows()
