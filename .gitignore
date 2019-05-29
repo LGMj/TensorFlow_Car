@@ -6,4 +6,5 @@ train_image/
 __pycache__/
 image1/
 train_data.kpl
-
+train_data_240.kpl
+log
